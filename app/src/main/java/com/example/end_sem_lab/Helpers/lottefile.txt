@@ -1,0 +1,84 @@
+To integrate a Lottie animation in a simple activity, follow these steps:
+
+### 1. Add Lottie Dependency
+
+First, add the Lottie dependency to your `build.gradle` file:
+
+```groovy
+dependencies {
+    implementation 'com.airbnb.android:lottie:5.2.0'
+}
+```
+
+### 2. Obtain a Lottie Animation JSON File
+
+You can find Lottie animation files on [LottieFiles](https://lottiefiles.com/) or create your own using Adobe After Effects with the Bodymovin plugin.
+
+### 3. Add the Lottie Animation JSON File to Your Project
+
+Place the downloaded Lottie animation JSON file in the `res/raw` directory of your project. If `raw` directory does not exist, create it.
+
+### 4. Create the Layout XML
+
+Create or update the layout XML file (e.g., `activity_main.xml`) to include a `LottieAnimationView`.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        app:lottie_rawRes="@raw/your_lottie_file" <!-- Change this to your JSON file name -->
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+
+</RelativeLayout>
+```
+
+### 5. Use the Lottie Animation in Your Activity
+
+In your activity (e.g., `MainActivity.java`), initialize the `LottieAnimationView` and customize it if necessary.
+
+```java
+package com.example.end_sem_lab;
+
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import com.airbnb.lottie.LottieAnimationView;
+
+public class MainActivity extends AppCompatActivity {
+
+    private LottieAnimationView lottieAnimationView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        lottieAnimationView = findViewById(R.id.lottieAnimationView);
+
+        // Optionally customize the animation
+        lottieAnimationView.setAnimation(R.raw.your_lottie_file); // Specify your Lottie animation file
+        lottieAnimationView.playAnimation();
+    }
+}
+```
+
+### 6. Run Your Application
+
+Now, when you run your application, the Lottie animation should be displayed in the specified activity.
+
+### Summary
+
+1. Add the Lottie dependency to `build.gradle`.
+2. Obtain and add the Lottie animation JSON file to the `res/raw` directory.
+3. Create or update the layout XML file to include `LottieAnimationView`.
+4. Use the Lottie animation in your activity by initializing `LottieAnimationView` and setting the animation.
+
+By following these steps, you can easily integrate Lottie animations into any activity in your Android application.

@@ -1,0 +1,111 @@
+Creating a splash screen in an Android application involves displaying a screen with a logo or other branding information when the app is first launched. Here's a step-by-step guide to implementing a splash screen in your Android project:
+
+### 1. Create a New Splash Activity
+
+First, create a new activity for the splash screen.
+
+#### Step 1: Create the Splash Activity
+
+Create a new Java class called `SplashActivity`:
+
+```java
+package com.example.end_sem_lab;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class SplashActivity extends AppCompatActivity {
+
+    private static final int SPLASH_DURATION = 2000; // 2 seconds
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Start the main activity
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }, SPLASH_DURATION);
+    }
+}
+```
+
+#### Step 2: Create the Layout for Splash Activity
+
+Create a new layout file named `activity_splash.xml` in the `res/layout` directory:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo" />
+
+</RelativeLayout>
+```
+
+Replace `@drawable/logo` with your actual logo resource.
+
+### 2. Modify the AndroidManifest.xml
+
+Set `SplashActivity` as the launcher activity and configure it:
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.end_sem_lab">
+
+    <application
+        ...>
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" />
+        ...
+    </application>
+
+</manifest>
+```
+
+### 3. Create a Splash Screen Theme
+
+Create a new theme for the splash screen to remove the action bar and status bar.
+
+Add the following theme to `res/values/styles.xml`:
+
+```xml
+<resources>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+</resources>
+```
+
+### 4. Run Your Application
+
+Now, when you run your application, it will show the splash screen for 2 seconds before transitioning to the main activity.
+
+This implementation provides a simple splash screen that shows an image for a specified duration before launching the main activity. You can customize the appearance and duration as needed for your application.
